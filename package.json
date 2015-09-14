@@ -1,0 +1,12 @@
+{
+    "name": "sybillightswitch",
+    "version": "0.0.1",
+    "devDependencies": {
+        "eslint": "latest"
+    },
+    "scripts": {
+        "lint": "eslint src/*/*.js",
+
+        "pretest": "npm run lint"
+    }
+}
