@@ -1,6 +1,6 @@
 "use strict";
 var url = "http://openhab.sybil.synyx.coffee/rest/items/";
-url = "http://localhost:8066/rest/items/"; // dev instance
+//url = "http://localhost:8066/rest/items/"; // dev instance
 var json = "?type=json";
 var lightsOnCounter;
 
