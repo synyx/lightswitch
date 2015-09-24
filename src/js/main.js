@@ -9,8 +9,7 @@ function loadStates() {
 
     function loadStatesHandler() {
         var light,
-            lightObject,
-            lightItem,
+            lightElement,
             lights;
 
         if (loadStatesJSON.readyState === 4 && loadStatesJSON.status === 200) {
@@ -18,16 +17,17 @@ function loadStates() {
 
             lightsOnCounter = 0;
 
-            for (light in lights) {
-                if (lights.hasOwnProperty(light)) {
-                    lightObject = lights[light];
-                    lightItem = document.getElementById(lightObject.name);
-                    if (lightObject.state === "ON") {
-                        lightItem.classList.remove("invisible");
-                        lightsOnCounter++;
-                    } else {
-                        lightItem.classList.add("invisible");
-                    }
+            for (var i = 0; i < lights.length; i++) {
+                light = lights[i];
+                lightElement = document.getElementById(light.name);
+                if (lightElement === null) {
+                    continue;
+                }
+                if (light.state === "ON") {
+                    lightElement.classList.remove("invisible");
+                    lightsOnCounter++;
+                } else {
+                    lightElement.classList.add("invisible");
                 }
             }
         }
@@ -44,27 +44,27 @@ function loadLights() {
     var loadLightsJSON = new XMLHttpRequest();
 
     var mainSwitch = document.getElementById("mainswitch");
-    mainSwitch.addEventListener("click", switchAllLights, false);
+    if (mainSwitch !== null) {
+        mainSwitch.addEventListener("click", switchAllLights, false);
+    }
 
     function LoadLightsHandler() {
         var light,
-            lightObject,
-            switchItem,
+            switchElement,
             switchName,
             lights;
 
         if (loadLightsJSON.readyState === 4 && loadLightsJSON.status === 200) {
             lights = JSON.parse(loadLightsJSON.responseText).item;
 
-            for (light in lights) {
-                if (lights.hasOwnProperty(light)) {
-                    lightObject = lights[light];
-                    switchName = lightObject.name.replace("light", "switch");
+            for (var i = 0; i < lights.length; i++) {
+                light = lights[i];
+                switchName = light.name.replace("light", "switch");
 
-                    switchItem = document.getElementById(switchName);
-                    switchItem.classList.remove("invisible");
-                    switchItem.addEventListener("click", switchLight, false);
-
+                switchElement = document.getElementById(switchName);
+                if (switchElement !== null) {
+                    switchElement.classList.remove("invisible");
+                    switchElement.addEventListener("click", switchLight, false);
                 }
             }
             loadStates();
@@ -77,8 +77,6 @@ function loadLights() {
         loadLightsJSON.send();
     }
 }
-
-
 
 function loadInlineSVG() {
     var loadSVG = new XMLHttpRequest();
@@ -96,14 +94,7 @@ function loadInlineSVG() {
         loadSVG.onreadystatechange = handler;
         loadSVG.send();
     }
-
 }
-
-document.addEventListener("onload", loadInlineSVG(), false);
-
-setInterval(function () {
-    loadStates();
-}, 15000);
 
 function toggleLight(light) {
     var toggleLightJSON = new XMLHttpRequest();
@@ -140,14 +131,17 @@ function toggleLight(light) {
 function switchLight(event) {
     var lightName = "light" + event.target.id,
         light = document.getElementById(lightName);
-    toggleLight(light);
+
+    if (light !== null) {
+        toggleLight(light);
+    }
 }
 
 function getAllLights() {
     var children = document.body.getElementsByTagName("g"),
         elements = [],
         child;
-    for (var i = 0, length = children.length; i < length; i++) {
+    for (var i = 0; i < children.length; i++) {
         child = children[i];
         if (child.id.substr(0, 6) == "switch" && !child.classList.contains("invisible")) {
             elements.push(child);
@@ -157,24 +151,39 @@ function getAllLights() {
 }
 
 function switchAllLights() {
-    var lights,
-        light,
+    var lights = getAllLights(),
         lightName,
-        lightObject;
-    lights = getAllLights();
+        lightElement;
 
-    for (light in lights) {
-        if (lights.hasOwnProperty(light)) {
-            lightName = lights[light].id.replace("switch", "light");
-            lightObject = document.getElementById(lightName);
+    function switchLightOn(element) {
+        if (element !== null && element.classList.contains("invisible")) {
+            toggleLight(element);
+        }
+    }
 
-            if (lightsOnCounter > 0 && !lightObject.classList.contains("invisible")) {
-                toggleLight(lightObject);
-            }
+    function switchLightOff(element) {
+        if (element !== null && !element.classList.contains("invisible")) {
+            toggleLight(element);
+        }
+    }
 
-            if (lightsOnCounter === 0) {
-                toggleLight(lightObject);
-            }
+    if (lightsOnCounter === 0) {
+        for (var i = 0; i < lights.length; i++) {
+            lightName = lights[i].id.replace("switch", "light");
+            lightElement = document.getElementById(lightName);
+            switchLightOn(lightElement);
+        }
+    } else {
+        for (var j = 0; j < lights.length; j++) {
+            lightName = lights[j].id.replace("switch", "light");
+            lightElement = document.getElementById(lightName);
+            switchLightOff(lightElement);
         }
     }
 }
+
+window.addEventListener("load", loadInlineSVG, false);
+
+setInterval(function () {
+    loadStates();
+}, 15000);
