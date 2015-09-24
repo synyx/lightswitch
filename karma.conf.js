@@ -40,7 +40,7 @@ module.exports = function(config) {
         reporters: ["progress", "junit", "coverage"],
 
         junitReporter: {
-            outputDir:"test-reports/"
+            outputDir:"../test-reports/"
         },
 
 
