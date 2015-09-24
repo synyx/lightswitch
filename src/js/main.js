@@ -1,4 +1,4 @@
-"use strict";
+"use strict"; // NOSONAR This might be unreliable in old browsers. We don't care about those!
 var url = "http://openhab.sybil.synyx.coffee/rest/items/";
 //url = "http://localhost:8066/rest/items/"; // dev instance
 var json = "?type=json";
@@ -98,7 +98,8 @@ function loadInlineSVG() {
 
 function toggleLight(light) {
     var toggleLightJSON = new XMLHttpRequest();
-    toggleLightJSON.responseType = "text"; // workaround for Firefox bug #884693
+    // workaround for Firefox bug #884693
+    toggleLightJSON.responseType = "text";
     toggleLightJSON.open("POST", url + light.id, true);
 
     function turnOnHandler() {
@@ -143,7 +144,7 @@ function getAllLights() {
         child;
     for (var i = 0; i < children.length; i++) {
         child = children[i];
-        if (child.id.substr(0, 6) == "switch" && !child.classList.contains("invisible")) {
+        if (child.id.substr(0, 6) === "switch" && !child.classList.contains("invisible")) {
             elements.push(child);
         }
     }
