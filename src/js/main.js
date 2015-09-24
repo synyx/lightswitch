@@ -1,4 +1,4 @@
-"use strict"; // NOSONAR This might be unreliable in old browsers. We don't care about those!
+"use strict";
 var url = "http://openhab.sybil.synyx.coffee/rest/items/";
 //url = "http://localhost:8066/rest/items/"; // dev instance
 var json = "?type=json";
