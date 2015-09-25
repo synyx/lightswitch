@@ -9,16 +9,16 @@ Nothing to build, just copy the contents of the `src`-folder to your webserver.
 
 ## Customizing
 
-Change the `url` variable in `srs/js/main.js` to point to your OpenHAB API.
+Change the `url` variable in `src/js/main.js` to point to your OpenHAB API.
 
-The names of the lights in OpenHAB should be `lightXX` where `XX` is a number (with leading zeros, if necessary).
+The names of the lights in OpenHAB should be `lightXX` where `XX` is a number (with leading zeros where necessary).
 
 On the SVG there are *switch* layers, with the id `switchXX`, which are made visible (and thus clickable) when there is
 an object named `lightXX` in the OpenHAB API.
 The *clickable* layers have the id `XX`, and when clicked upon will toggle the `lightXX` in the OpenHAB API and turn the
 *light* layer with id `lightXX` visible/invisible (i.e. ON/OFF) in the SVG.
 
-To edit the SVG, be careful not to disturb the hand-edits XML and styles. Inkscape is not a good choice for this, it
+To edit the SVG, be careful not to disturb the hand-edited XML and styles. Inkscape is not a good choice for this, it
 will require manual editing of the XML afterwards!
 
 ## Testing
