@@ -23,7 +23,7 @@ will require manual editing of the XML afterwards!
 
 ## Testing
 
-Run `npm install` once.
+You need [npm](https://www.npmjs.com/) installed and run `npm install` in the project folder once.
 
 Then run `npm test` to run tests.
 
