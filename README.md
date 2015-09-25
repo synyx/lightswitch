@@ -19,7 +19,8 @@ The *clickable* layers have the id `XX`, and when clicked upon will toggle the `
 *light* layer with id `lightXX` visible/invisible (i.e. ON/OFF) in the SVG.
 
 To edit the SVG, be careful not to disturb the hand-edited XML and styles. Inkscape is not a good choice for this, it
-will require manual editing of the XML afterwards!
+will require manual editing of the XML afterwards!  
+Try using [Draw SVG](http://www.drawsvg.org/) instead.
 
 ## Testing
 
