@@ -1,7 +1,11 @@
-Sybil Light Switches
-====================
+Sybil Light Switch
+==================
 
-UI for switching lights on/off in the office using OpenHAB.
+*Sybil Light Switch* is a simple, responsive UI for switching lights on and off in the office using OpenHAB.
+
+## Screenshot
+
+![Screenshot](screenshot.png)
 
 ## Building/Running
 
